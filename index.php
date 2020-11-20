@@ -83,6 +83,9 @@ Hi <?php echo $userRow['userName' ]; ?>
   <p class="h3">By Category</p>
   
     <a href= "senior.php"><button type="button" class="btn btn-info">Seniors</button></a>
+    <!-- Passing the size using the GET method allows using general.php for both size categories -->
+    <a href= "general.php?size='small'"><button type="button" class="btn btn-info">Small Pets</button></a>
+    <a href= "general.php?size='large'"><button type="button" class="btn btn-info">Large Pets</button></a>
   
   </div>
   

@@ -4,7 +4,6 @@ ob_start();
 session_start();
 require_once 'actions/db_connect.php';
 
-// if session is not set this will redirect to login page
 if( !isset($_SESSION['user']) && !isset($_SESSION["admin"]) ) {
     header("Location: login.php");
     exit;
@@ -12,7 +11,6 @@ if( !isset($_SESSION['user']) && !isset($_SESSION["admin"]) ) {
      header("Location: index.php");
    }
 
-// Why are we using get?
 if ($_GET['id']) {
    $id = $_GET['id'];
 

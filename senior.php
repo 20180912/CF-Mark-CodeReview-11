@@ -1,7 +1,14 @@
 <?php
+
 ob_start();
 session_start();
 require_once 'actions/db_connect.php';
+
+if( !isset($_SESSION['user']) && !isset($_SESSION["admin"]) ) {
+    header("Location: login.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>

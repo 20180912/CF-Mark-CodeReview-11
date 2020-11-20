@@ -1,19 +1,17 @@
 <?php
+
 ob_start();
 session_start();
 require_once 'actions/db_connect.php';
 
-// if session is not set this will redirect to login page
-if(isset($_SESSION['user'])) {
-    header("Location: index.php");
+if( !isset($_SESSION['user']) && !isset($_SESSION["admin"]) ) {
+    header("Location: login.php");
     exit;
-} elseif(!isset($_SESSION['admin']) ) {
- header("Location: login.php");
- exit;
-}
-// select logged-in users details
-$res=mysqli_query($connect, "SELECT * FROM users WHERE userID=".$_SESSION['admin']);
-$userRow=mysqli_fetch_array($res, MYSQLI_ASSOC);
+   }
+
+if ($_GET['size']) {
+   $size = $_GET['size'];
+
 ?>
 
 <!DOCTYPE html>
@@ -27,19 +25,15 @@ $userRow=mysqli_fetch_array($res, MYSQLI_ASSOC);
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
    
-    <title>Welcome - <?php echo $userRow['userName']; ?></title>
+    <title>Adopt a Pet</title>
 
 </head>
 <body>
 
 <div class ="container">
-  
-Hi <?php echo $userRow['userName' ]; ?>
-           
-           <a  href="logout.php?logout">Sign Out</a>
     
   <p class="display-3 text-info">Adopt a Pet</p>
-  <p class="h3">All Pets</p>
+  <p class="h3">Pets</p>
      <table class="table table-bordered mt-5">
          <thead>
              <tr>
@@ -57,7 +51,8 @@ Hi <?php echo $userRow['userName' ]; ?>
          <tbody>
   
          <?php
-             $sql = "SELECT * FROM animals";
+             //$sql = "SELECT * FROM animals WHERE size='small'";
+             $sql = "SELECT * FROM animals WHERE size = $size";
              $result = $connect->query($sql);
   
               if($result->num_rows > 0) {
@@ -70,27 +65,18 @@ Hi <?php echo $userRow['userName' ]; ?>
                          <td>" .$row['location']."</td>
                          <td>" .$row['age']."</td>
                          <td>" .$row['size']."</td>
-                         <td>
-                             <a href='update.php?id=" .$row['animalID']."'><button type='button' class='btn btn-info'>Edit</button></a>
-                             <a href='delete.php?id=" .$row['animalID']."'><button type='button' class='btn btn-info'>Delete</button></a>
-                         </td>
                      </tr>" ;
                  }
              } else  {
                  echo  "<tr><td colspan='5'><center>No Data Avaliable</center></td></tr>";
              }
+
               ?>
   
          </tbody>
      </table>
-      <a href= "create.php"><button type="button" class="btn btn-info">Add Pet</button></a>
-  <hr>
-  <p class="h3">By Category</p>
   
-    <a href= "senior.php"><button type="button" class="btn btn-info">Seniors</button></a>
-    <!-- Passing the size using the GET method allows using general.php for both size categories -->
-    <a href= "general.php?size='small'"><button type="button" class="btn btn-info">Small Pets</button></a>
-    <a href= "general.php?size='large'"><button type="button" class="btn btn-info">Large Pets</button></a>
+<a href= "index.php"><button type="button" class="btn btn-info">Back</button></a>
   
   </div>
   
@@ -100,4 +86,7 @@ Hi <?php echo $userRow['userName' ]; ?>
 
 </body>
 </html>
-<?php ob_end_flush(); ?>
+<?php
+}
+ob_end_flush();
+?>
