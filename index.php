@@ -27,6 +27,9 @@ $userRow=mysqli_fetch_array($res, MYSQLI_ASSOC);
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
    
+    <!-- Ajax, jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
+
     <title>Welcome - <?php echo $userRow['userName']; ?></title>
 
 </head>
@@ -87,11 +90,48 @@ Hi <?php echo $userRow['userName' ]; ?>
     <a href= "general.php?size='small'"><button type="button" class="btn btn-info">Small Pets</button></a>
     <a href= "general.php?size='large'"><button type="button" class="btn btn-info">Large Pets</button></a>
   
+<hr>
+
+  <p class="h3">By Name</p>
+  <form id="petnames" action="petnames.php" method="POST">
+  <input type="text" name="name" id="name" placeholder="pet name">
+  <div id="results"></div>
+  </form>
+
   </div>
   
-  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <!-- The regular jQuery must not be included since it interferes with the ajax -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<script>
+      var request;
+      $("#name").keyup(function(event){
+
+          var form = $(this);
+          var inputs = form.find("input, select, button, textarea");
+          var serializedData = form.serialize();
+          inputs.prop("disabled", true);
+          request = $.ajax({
+              url: "petnames.php",
+              type: "post",
+              data: serializedData
+          });
+
+          request.done(function(response, textStatus, jqXHR){
+              document.getElementById("results").innerHTML=response;
+          });
+
+          request.fail(function(jqXHR, textStatus, errorThrown){
+              console.error(
+                  "The following error occurred: " + textStatus, errorThrown
+              );
+          });
+
+          request.always(function(){
+              inputs.prop("disabled", false);
+          });
+      });
+  </script>
 
 </body>
 </html>
