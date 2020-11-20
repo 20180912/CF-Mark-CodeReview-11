@@ -23,44 +23,59 @@ if( !isset($_SESSION['user' ]) && !isset($_SESSION["admin"]) ) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
    
-    <title>Add Meal</title>
+    <title>Add Pet</title>
 
 </head>
 <body>
 
+<div class ="container">
 <fieldset >
-   <legend>Add Meal</legend>
+   <legend>Add Pet</legend>
 
-   <form  action="actions/a_create.php" method= "post" enctype="multipart/form-data">
+   <form  action="actions/a_create.php" method= "post">
        <table class="table table-bordered">
            <tr>
                <th>Image</th >
-               <td><input type="hidden" name="MAX_FILE_SIZE" value="1000000" /><input type="file" name="uploaded_file" placeholder="choose a file to upload...jpg"><img width="250px"></td >
+               <td><input  type="text" name="image"/></td >
            </tr>    
            <tr>
                <th>Name</th>
                <td><input  type="text" name= "name"/></td>
            </tr>
            <tr>
-               <th>Ingredients</th>
-               <td><input  type="text" name= "ingredients"/></td>
+               <th>Description</th>
+               <td><input  type="text" name= "description"/></td>
            </tr>
            <tr>
-               <th>Price</th>
-               <td><input  type="text" name= "price"/></td>
+               <th>Hobbies</th>
+               <td><input  type="text" name= "hobbies"/></td>
            </tr>
            <tr>
-               <th>Allergens</th>
-               <td><input  type="text" name= "allergens"/></td>
+               <th>Location</th>
+               <td><input  type="text" name= "location"/></td>
            </tr>
            <tr>
-                <td><a href= "index.php"><button type="button" class="btn btn-info">Back</button></a></td>
-                <td><button type="submit" class="btn btn-info">Insert Meal</button></td>
+               <th>Age</th>
+               <td><input  type="text" name= "age"/></td>
+           </tr>
+           <tr>
+               <th>Size</th>
+               <td>
+               <input type="radio" id="small" name="size" value="small">
+               <label for="small">small</label><br>
+               <input type="radio" id="large"name="size" value="large">
+               <label for="large">large</label><br>
+               </td>
+           </tr>
+           <tr>
+                <td><a href= "admin.php"><button type="button" class="btn btn-info">Back</button></a></td>
+                <td><button type="submit" class="btn btn-info">Insert Pet</button></td>
            </tr >
        </table>
    </form>
 
 </fieldset >
+</div>
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

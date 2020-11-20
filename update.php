@@ -5,7 +5,7 @@ session_start();
 require_once 'actions/db_connect.php';
 
 // if session is not set this will redirect to login page
-if( !isset($_SESSION['user' ]) && !isset($_SESSION["admin"]) ) {
+if( !isset($_SESSION['user']) && !isset($_SESSION["admin"]) ) {
     header("Location: login.php");
     exit;
    } elseif(isset($_SESSION["user"])){
@@ -16,7 +16,7 @@ if( !isset($_SESSION['user' ]) && !isset($_SESSION["admin"]) ) {
 if ($_GET['id']) {
    $id = $_GET['id'];
 
-   $sql = "SELECT * FROM meals WHERE mealID = {$id}";
+   $sql = "SELECT * FROM animals WHERE animalID = {$id}";
    $result = $connect->query($sql);
 
    $data = $result->fetch_assoc();
@@ -35,45 +35,60 @@ if ($_GET['id']) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-   <title>Edit Meal</title>
+   <title>Update Pet</title>
 
 </head>
 <body>
 
+<div class ="container">
 <fieldset>
-   <legend>Update Meal</legend>
+   <legend>Update Pet</legend>
 
-   <form action="actions/a_update.php" method="post" enctype="multipart/form-data">
-       <table  class="table table-bordered">
+   <form  action="actions/a_update.php" method= "post">
+       <table class="table table-bordered">
            <tr>
                <th>Image</th >
-               <td><img  src="<?php echo $row['image'] ?>" width="250px"><input type="hidden" name="MAX_FILE_SIZE" value="1000000" /><input type="file" name="uploaded_file" placeholder="choose a file to upload...jpg"></td >
-           </tr >    
+               <td><input  type="text" name="image" value="<?php echo $data['image'] ?>" /></td >
+           </tr>    
            <tr>
                <th>Name</th>
-               <td><input type= "text" name="name"  value ="<?php echo $data['name'] ?>" /></td >
+               <td><input  type="text" name= "name" value="<?php echo $data['name'] ?>" /></td>
            </tr>
            <tr>
-               <th>Ingredients</th>
-               <td><input type= "text" name="ingredients"  value ="<?php echo $data['ingredients'] ?>" /></td>
+               <th>Description</th>
+               <td><input  type="text" name= "description" value="<?php echo $data['description'] ?>" /></td>
            </tr>
            <tr>
-               <th>Price</th>
-               <td><input type= "text" name="price"  value ="<?php echo $data['price'] ?>" /></td>
+               <th>Hobbies</th>
+               <td><input  type="text" name= "hobbies" value="<?php echo $data['hobbies'] ?>" /></td>
            </tr>
            <tr>
-               <th>Allergens</th>
-               <td><input type= "text" name="allergens"  value ="<?php echo $data['allergens'] ?>" /></td>
+               <th>Location</th>
+               <td><input  type="text" name= "location" value="<?php echo $data['location'] ?>" /></td>
            </tr>
            <tr>
-               <input type= "hidden" name= "id" value= "<?php echo $data['mealID']?>" />
-               <td><a href= "index.php"><button  type="button" class='btn btn-info'>Back</button ></a ></td >
-               <td><button type="submit" class='btn btn-info'>Save Changes</button ></td>
+               <th>Age</th>
+               <td><input  type="text" name= "age" value="<?php echo $data['age'] ?>" /></td>
            </tr>
+           <tr>
+               <th>Size</th>
+               <td>
+               <input type="radio" id="small" name="size" value="small" <?php echo ($data['size']== 'small') ?  "checked" : "" ;  ?>>
+               <label for="small">small</label><br>
+               <input type="radio" id="large" name="size" value="large" <?php echo ($data['size']== 'large') ?  "checked" : "" ;  ?>>
+               <label for="large">large</label><br>
+               </td>
+           </tr>
+           <tr>
+                <input type= "hidden" name= "id" value= "<?php echo $data['animalID']?>" />
+                <td><a href= "admin.php"><button type="button" class="btn btn-info">Back</button></a></td>
+                <td><button type="submit" class="btn btn-info">Save Changes</button></td>
+           </tr >
        </table>
-   </form >
+   </form>
 
 </fieldset >
+</div>
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

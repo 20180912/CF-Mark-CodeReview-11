@@ -15,7 +15,7 @@ if( !isset($_SESSION['user' ]) && !isset($_SESSION["admin"]) ) {
 if (isset($_GET['id'])) {
    $id = $_GET['id'];
 
-   $sql = "SELECT * FROM meals WHERE mealID = {$id}" ;
+   $sql = "SELECT * FROM animals WHERE animalID = {$id}" ;
    $result = $connect->query($sql);
    $data = $result->fetch_assoc();
 
@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-   <title >Delete Meal</title>
+   <title >Delete Pet</title>
    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -35,10 +35,10 @@ if (isset($_GET['id'])) {
 </head>
 <body>
 
-<h3>Do you really want to delete this meal?</h3>
+<h3>Do you really want to delete this pet?</h3>
 <form action ="actions/a_delete.php" method="post">
 
-   <input type="hidden" name= "id" value="<?php echo $data['mealID'] ?>" />
+   <input type="hidden" name= "id" value="<?php echo $data['animalID'] ?>" />
    <button type="submit">Yes, delete it!</button >
    <a href="index.php"><button type="button" class="btn btn-info">No, go back!</button ></a>
 </form>

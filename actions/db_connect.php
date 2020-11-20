@@ -7,7 +7,7 @@ $localhost = "127.0.0.1";
 $username = "root";
 $password = "";
 //$dbname = "meals";
-define('dbname', 'meals');
+define('dbname', 'cr11_mark_petadoption');
 
 // create connection
 $connect = new  mysqli($localhost, $username, $password, dbname);
