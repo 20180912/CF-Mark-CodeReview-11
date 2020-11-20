@@ -115,7 +115,7 @@ echo  $errMSG; ?>
      
          
    </form>
-
+   <div class="alert alert-success" role="success">Use Max@Mustermann.at / 123456 as a user and Erika@Mustermann.at / 654321 as a (super)admin</div>
 </div>
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
