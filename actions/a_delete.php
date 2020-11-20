@@ -8,7 +8,7 @@ if ($_POST) {
    $sql = "DELETE FROM animals WHERE animalID = {$id}";
     if($connect->query($sql) === TRUE) {
        echo "<p>Successfully deleted!!</p>" ;
-       echo "<a href='../index.php'><button type='button'>Back</button></a>";
+       echo "<a href='../admin.php'><button type='button'>Back</button></a>";
    } else {
        echo "Error updating record : " . $connect->error;
    }

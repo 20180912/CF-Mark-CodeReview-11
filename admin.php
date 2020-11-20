@@ -92,6 +92,38 @@ Hi <?php echo $userRow['userName' ]; ?>
     <a href= "general.php?size='small'"><button type="button" class="btn btn-info">Small Pets</button></a>
     <a href= "general.php?size='large'"><button type="button" class="btn btn-info">Large Pets</button></a>
   
+  <hr>
+  <p class="h3">Users</p>
+  <table class="table table-bordered mt-5">
+         <thead>
+             <tr>
+                 <th scope="col">User Name</th>
+                 <th scope="col">User Type</th>
+             </tr>
+         </thead>
+         <tbody>
+  <?php
+           $sql = "SELECT userID, userEmail, userType FROM users";
+           $resultUsers = $connect->query($sql);
+        //Displaying all users but disabling change privileges for account being used 
+            if($resultUsers->num_rows > 0) {
+                while($rowUsers = $resultUsers->fetch_assoc()) {
+                   echo "<tr>
+                   <td>" .$rowUsers['userEmail']."</td>
+                   <td>" .$rowUsers['userType']."</td>
+                   <td>
+                       <a href='user.php?id=" .$rowUsers['userID']."'><button type='button' class='btn btn-info' " .(($rowUsers['userID'] == $_SESSION['admin']) ? "disabled" : "").">Change privileges</button></a>
+                   </td>
+               </tr>" ;
+           }
+       } else  {
+           echo  "<tr><td colspan='5'><center>No Data Avaliable</center></td></tr>";
+       }
+        ?>
+        </tbody>
+        </table
+  ?>
+
   </div>
   
   <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
